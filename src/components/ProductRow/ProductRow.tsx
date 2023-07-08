@@ -7,7 +7,6 @@ const ProductRow: React.FC<Props> = ({
   nombre,
   precioNormal,
   precioOferta,
-  enOferta,
 }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {};
   return (
@@ -19,7 +18,7 @@ const ProductRow: React.FC<Props> = ({
       <td>
         <input
           type="checkbox"
-          checked={enOferta}
+          checked={Boolean(precioOferta)}
           onChange={handleChange}
         />
       </td>

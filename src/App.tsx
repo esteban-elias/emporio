@@ -14,4 +14,5 @@ export default App;
 /**
  * To-do:
  *  - Import alias for types for better readability
+ *  - Move the reducer outside ProductForm? (it's not used anywhere else)
  */

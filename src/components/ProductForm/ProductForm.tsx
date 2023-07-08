@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import { ProductFormReducerActionType as ActionType } from '../../enums';
+import { ProductFormReducerActionType as Action } from '../../enums';
 import {
   ProductFormReducerActionPayload as Payload,
   Product,
@@ -10,48 +10,37 @@ import styles from './ProductForm.module.css';
 
 const reducer: Reducer = (state, action) => {
   switch (action.type) {
-    case ActionType.ChangeInput:
-      if (Object.values(action.payload!).includes('enOferta')) {
-        return {
-          ...state,
-          [action.payload!.name]: action.payload!.checked,
-        };
-      }
+    case Action.ChangeInput:
       return {
         ...state,
         [action.payload!.name]: action.payload!.value,
       };
-    case ActionType.Reset:
+    case Action.Reset:
       return {
         categoria: '',
         nombre: '',
-        precioNormal: 0,
-        enOferta: false,
-        precioOferta: 0,
+        precioNormal: '',
+        precioOferta: '',
       };
     default:
       return state;
   }
 };
 
-const initialValue = {
-  categoria: '',
-  nombre: '',
-  precioNormal: 0,
-  enOferta: false,
-  precioOferta: 0,
-};
-
 const ProductForm: React.FC<Props> = ({ addProduct }) => {
-  const [state, dispatch] = useReducer(reducer, initialValue);
-
+  const [state, dispatch] = useReducer(reducer, {
+    categoria: '',
+    nombre: '',
+    precioNormal: '',
+    precioOferta: '',
+  });
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     addProduct({
       ...state,
       id: crypto.randomUUID(),
     } as Product);
-    dispatch({ type: ActionType.Reset });
+    dispatch({ type: Action.Reset });
   };
 
   const handleChange = (
@@ -59,18 +48,8 @@ const ProductForm: React.FC<Props> = ({ addProduct }) => {
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLSelectElement>
   ) => {
-    if (e.target.name === 'enOferta' && e.target instanceof HTMLInputElement) {
-      dispatch({
-        type: ActionType.ChangeInput,
-        payload: {
-          name: e.target.name,
-          checked: e.target.checked,
-        } as Payload,
-      });
-      return;
-    }
     dispatch({
-      type: ActionType.ChangeInput,
+      type: Action.ChangeInput,
       payload: {
         name: e.target.name,
         value: e.target.value,
@@ -108,16 +87,7 @@ const ProductForm: React.FC<Props> = ({ addProduct }) => {
         <input
           type="number"
           name="precioNormal"
-          value={state.precioNormal === 0 ? '' : state.precioNormal}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        En Oferta
-        <input
-          type="checkbox"
-          name="enOferta"
-          checked={state.enOferta}
+          value={state.precioNormal}
           onChange={handleChange}
         />
       </label>
@@ -126,8 +96,7 @@ const ProductForm: React.FC<Props> = ({ addProduct }) => {
         <input
           type="number"
           name="precioOferta"
-          disabled={!state.enOferta}
-          value={state.precioOferta === 0 ? '' : state.precioOferta}
+          value={state.precioOferta ? state.precioOferta : ''}
           onChange={handleChange}
         />
       </label>

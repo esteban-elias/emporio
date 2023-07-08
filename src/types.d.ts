@@ -5,8 +5,7 @@ export type Product = {
   categoria: string;
   nombre: string;
   precioNormal: number;
-  precioOferta: number;
-  enOferta: boolean;
+  precioOferta: number | null;
 };
 
 export type ProductTableProps = {
@@ -19,13 +18,17 @@ export type ProductFormProps = {
   addProduct: (product: Product) => void;
 };
 
-export type ProductFormReducerState = Omit<Product, 'id'>;
+type OriginalOrEmptyString<T> = {
+  [P in keyof T]: T[P] | '';
+};
 
+export type ProductFormReducerState = OriginalOrEmptyString<
+  Omit<Product, 'id'>
+>;
 
 export type ProductFormReducerActionPayload = {
   name: keyof ProductFormReducerState;
-  value?: string | number | boolean;
-  checked?: boolean;
+  value: string | number | boolean;
 };
 
 export type ProductFormReducerAction = {

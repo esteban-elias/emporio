@@ -27,7 +27,6 @@ const ProductTable: React.FC<Props> = ({ products }) => {
               nombre={product.nombre}
               precioNormal={product.precioNormal}
               precioOferta={product.precioOferta}
-              enOferta={product.enOferta}
             />
           );
         })}

@@ -11,15 +11,13 @@ const data = [
     nombre: 'Monitor',
     precioNormal: 1000,
     precioOferta: 800,
-    enOferta: true,
   },
   {
     id: crypto.randomUUID(),
     categoria: 'Tecnología',
     nombre: 'Mouse',
     precioNormal: 100,
-    precioOferta: 100,
-    enOferta: false,
+    precioOferta: null,
   },
 ];
 
