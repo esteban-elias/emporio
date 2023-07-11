@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProductTableProps as Props} from '../../types';
+import { ProductTableProps as Props } from '../../types';
 import ProductRow from '../ProductRow/ProductRow';
 import styles from './ProductTable.module.css';
 
@@ -8,14 +8,13 @@ const ProductTable: React.FC<Props> = ({ products }) => {
     <table className={styles.container}>
       <thead>
         <tr>
-          <th colSpan={5}>Listado de Productos</th>
+          <th colSpan={4}>Listado de Productos</th>
         </tr>
         <tr>
           <th>Categoría</th>
           <th>Nombre</th>
           <th>Precio Normal</th>
           <th>Precio Oferta</th>
-          <th>En Oferta</th>
         </tr>
       </thead>
       <tbody>

@@ -1,4 +1,4 @@
-export const enum ProductFormReducerActionType {
+export const enum ProductFormActionType {
   ChangeInput,
   Reset,
 }

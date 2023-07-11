@@ -1,8 +1,8 @@
 import { useState } from 'react';
+import { Product } from '../../types';
 import ProductForm from '../ProductForm/ProductForm';
 import ProductTable from '../ProductTable/ProductTable';
 import styles from './ProductPanel.module.css';
-import { Product } from '../../types';
 
 const data = [
   {
@@ -31,7 +31,7 @@ const ProductPanel = () => {
   return (
     <section className={styles.container}>
       <h1>Panel de Productos</h1>
-      <ProductForm addProduct={addProduct}/>
+      <ProductForm addProduct={addProduct} />
       <ProductTable products={products} />
     </section>
   );

@@ -1,4 +1,4 @@
-import { ProductFormReducerActionType } from './enums';
+import { ProductFormActionType as Action } from './enums';
 
 export type Product = {
   id: `${string}-${string}-${string}-${string}-${string}`;
@@ -18,25 +18,23 @@ export type ProductFormProps = {
   addProduct: (product: Product) => void;
 };
 
-type OriginalOrEmptyString<T> = {
-  [P in keyof T]: T[P] | '';
+export type ProductFormPayloadType = {
+  name: keyof ProductFormState;
+  value: string;
 };
 
-export type ProductFormReducerState = OriginalOrEmptyString<
-  Omit<Product, 'id'>
->;
+export type ProductFormAction =
+  | {
+      type: Action.ChangeInput;
+      payload: ProductFormPayloadType;
+    }
+  | { type: Action.Reset };
 
-export type ProductFormReducerActionPayload = {
-  name: keyof ProductFormReducerState;
-  value: string | number | boolean;
+export type ProductFormState = {
+  categoria: string;
+  nombre: string;
+  precioNormal: number | '';
+  precioOferta: number | '';
 };
 
-export type ProductFormReducerAction = {
-  type: ProductFormReducerActionType;
-  payload?: ProductFormReducerActionPayload;
-};
-
-export type ProductFormReducer = (
-  state: ProductFormReducerState,
-  action: ProductFormReducerAction
-) => ProductFormReducerState;
+type ValidateForm = (params: ProductFormState) => Omit<Product, 'id'>;

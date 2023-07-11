@@ -1,59 +1,49 @@
-import React, { useReducer } from 'react';
-import { ProductFormReducerActionType as Action } from '../../enums';
+import React from 'react';
+import useProductForm from '../../hooks/useProductForm';
 import {
-  ProductFormReducerActionPayload as Payload,
-  Product,
+  ProductFormState,
   ProductFormProps as Props,
-  ProductFormReducer as Reducer,
 } from '../../types';
+import { validateForm } from '../../utils/validations/product-form';
 import styles from './ProductForm.module.css';
 
-const reducer: Reducer = (state, action) => {
-  switch (action.type) {
-    case Action.ChangeInput:
-      return {
-        ...state,
-        [action.payload!.name]: action.payload!.value,
-      };
-    case Action.Reset:
-      return {
-        categoria: '',
-        nombre: '',
-        precioNormal: '',
-        precioOferta: '',
-      };
-    default:
-      return state;
-  }
-};
-
 const ProductForm: React.FC<Props> = ({ addProduct }) => {
-  const [state, dispatch] = useReducer(reducer, {
-    categoria: '',
-    nombre: '',
-    precioNormal: '',
-    precioOferta: '',
-  });
+  const {
+    categoria,
+    nombre,
+    precioNormal,
+    precioOferta,
+    changeInput,
+    reset,
+  } = useProductForm();
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    addProduct({
-      ...state,
-      id: crypto.randomUUID(),
-    } as Product);
-    dispatch({ type: Action.Reset });
+    try {
+      const fields = validateForm({
+        categoria: categoria,
+        nombre: nombre,
+        precioNormal: precioNormal,
+        precioOferta: precioOferta,
+      });
+      addProduct({
+        ...fields,
+        id: crypto.randomUUID(),
+      });
+      reset();
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
+    }
   };
 
   const handleChange = (
-    e:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    dispatch({
-      type: Action.ChangeInput,
-      payload: {
-        name: e.target.name,
-        value: e.target.value,
-      } as Payload,
+    changeInput({
+      name: e.target.name as keyof ProductFormState,
+      value: e.target.value,
     });
   };
 
@@ -64,8 +54,9 @@ const ProductForm: React.FC<Props> = ({ addProduct }) => {
         Categoría
         <select
           name="categoria"
-          value={state.categoria}
+          value={categoria}
           onChange={handleChange}
+          required
         >
           <option value="">-</option>
           <option value="Tecnología">Tecnología</option>
@@ -78,8 +69,9 @@ const ProductForm: React.FC<Props> = ({ addProduct }) => {
         Nombre
         <input
           name="nombre"
-          value={state.nombre}
+          value={nombre}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
@@ -87,8 +79,9 @@ const ProductForm: React.FC<Props> = ({ addProduct }) => {
         <input
           type="number"
           name="precioNormal"
-          value={state.precioNormal}
+          value={precioNormal}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
@@ -96,7 +89,7 @@ const ProductForm: React.FC<Props> = ({ addProduct }) => {
         <input
           type="number"
           name="precioOferta"
-          value={state.precioOferta ? state.precioOferta : ''}
+          value={precioOferta}
           onChange={handleChange}
         />
       </label>
