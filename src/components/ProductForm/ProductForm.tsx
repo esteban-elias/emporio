@@ -49,7 +49,7 @@ const ProductForm: React.FC<Props> = ({ addProduct }) => {
 
   return (
     <form className={styles.container} onSubmit={handleSubmit}>
-      <h2>Formulario (Crear/Editar)</h2>
+      <h2>Ingresar Producto</h2>
       <label>
         Categoría
         <select

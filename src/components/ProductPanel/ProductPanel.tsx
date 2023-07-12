@@ -25,14 +25,32 @@ const ProductPanel = () => {
   const [products, setProducts] = useState<Product[]>(data);
 
   const addProduct = (product: Product) => {
-    setProducts((PrevProducts) => PrevProducts.concat(product));
+    setProducts((prevProducts) => prevProducts.concat(product));
+  };
+
+  const updateProduct = (product: Product) => {
+    setProducts((prevProducts) =>
+      prevProducts.map((prevProduct) =>
+        prevProduct.id === product.id ? product : prevProduct
+      )
+    );
+  };
+
+  const deleteProduct = (id: Product['id']) => {
+    setProducts((prevProducts) =>
+      prevProducts.filter((product) => product.id !== id)
+    );
   };
 
   return (
     <section className={styles.container}>
       <h1>Panel de Productos</h1>
       <ProductForm addProduct={addProduct} />
-      <ProductTable products={products} />
+      <ProductTable
+        products={products}
+        updateProduct={updateProduct}
+        deleteProduct={deleteProduct}
+      />
     </section>
   );
 };
