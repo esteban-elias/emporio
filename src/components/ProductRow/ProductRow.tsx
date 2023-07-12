@@ -60,6 +60,12 @@ const ProductRow: React.FC<Props> = ({
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleOnClickEditar();
+    }
+  };
+
   return (
     <tr className={styles.container}>
       <td>
@@ -87,6 +93,7 @@ const ProductRow: React.FC<Props> = ({
             value={formState.nombre}
             disabled={!updateMode}
             onChange={handleChange}
+            onKeyDown={handleKeyDown}
           />
         ) : (
           <span>{formState.nombre}</span>
@@ -100,6 +107,7 @@ const ProductRow: React.FC<Props> = ({
             disabled={!updateMode}
             type="number"
             onChange={handleChange}
+            onKeyDown={handleKeyDown}
           />
         ) : (
           <span>{toCLP(formState.precioNormal)}</span>
@@ -113,6 +121,7 @@ const ProductRow: React.FC<Props> = ({
             disabled={!updateMode}
             type="number"
             onChange={handleChange}
+            onKeyDown={handleKeyDown}
           />
         ) : (
           <span>{toCLP(formState.precioOferta)}</span>
