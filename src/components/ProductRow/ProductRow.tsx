@@ -71,8 +71,8 @@ const ProductRow: React.FC<Props> = ({
             onChange={handleChange}
           >
             <option value="Tecnología">Tecnología</option>
-            <option value="Ropa Hombre">Hogar</option>
-            <option value="Ropa Mujer">Juguetes</option>
+            <option value="Ropa Hombre">Ropa Hombre</option>
+            <option value="Ropa Mujer">Ropa Mujer</option>
             <option value="Joyería">Joyería</option>
           </select>
         ) : (
