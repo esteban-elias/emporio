@@ -1,4 +1,5 @@
-import { ProductFormActionType as Action } from './enums';
+import { ReactNode } from 'react';
+import { ProductActionType } from './enums';
 
 export type Product = {
   id: `${string}-${string}-${string}-${string}-${string}`;
@@ -23,16 +24,30 @@ export type ProductFormProps = {
   addProduct: (product: Product) => void;
 };
 
-export type ProductFormPayloadType = {
+export type ProductPayload = {
   name: keyof ProductFormState;
   value: string;
 };
 
-export type ProductFormAction =
+export type ProductAction =
   | {
-      type: Action.ChangeInput;
-      payload: ProductFormPayloadType;
+      type: ProductActionType.Add | ProductActionType.Update;
+      payload: Product;
     }
-  | { type: Action.Reset };
+  | { type: ProductActionType.Delete; payload: Pick<Product, 'id'> };
 
-export type ProductFormState = Omit<Product, 'id'>;
+export type ProductContext = {
+  products: Product[];
+  addProduct: (product: Product) => void;
+  updateProduct: (product: Product) => void;
+  deleteProduct: (id: Product['id']) => void;
+};
+
+export type ProductProviderProps = {
+  children: ReactNode;
+};
+
+export type ProductRowProps = Product & {
+  updateProduct: (product: Product) => void;
+  deleteProduct: (id: Product['id']) => void;
+};

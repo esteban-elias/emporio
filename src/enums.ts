@@ -1,4 +1,5 @@
-export const enum ProductFormActionType {
-  ChangeInput,
-  Reset,
+export const enum ProductActionType {
+  Add,
+  Update,
+  Delete
 }

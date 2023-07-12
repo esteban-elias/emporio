@@ -1,11 +1,11 @@
-import { ProductFormState } from '../../types';
+import { Product } from '../types';
 
 export const validateProduct = ({
   categoria,
   nombre,
   precioNormal,
   precioOferta,
-}: ProductFormState) => {
+}: Product) => {
   if (categoria === '' || nombre === '' || precioNormal === '') {
     throw new Error('Todos los campos son obligatorios');
   }
@@ -20,11 +20,4 @@ export const validateProduct = ({
   if (isNaN(Number(precioNormal)) || isNaN(Number(precioOferta))) {
     throw new Error('Los precios deben ser números');
   }
-
-  return {
-    categoria,
-    nombre,
-    precioNormal: Number(precioNormal),
-    precioOferta: Number(precioNormal),
-  };
 };
