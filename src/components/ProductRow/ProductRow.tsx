@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
-import { ProductRowProps as Props } from '../../types';
+import {
+  ProductRowProps as Props,
+  ProductFormState,
+} from '../../types';
 import styles from './ProductRow.module.css';
+import useProductForm from '../../hooks/useProductForm';
 
 const ProductRow: React.FC<Props> = ({
   id,
@@ -12,26 +16,28 @@ const ProductRow: React.FC<Props> = ({
   deleteProduct,
 }) => {
   const [updateMode, setUpdateMode] = useState(false);
-  const [formState, setFormState] = useState({
+  const formState = useProductForm({
     categoria,
     nombre,
     precioNormal,
     precioOferta,
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormState((prevFormState) => {
-      return {
-        ...prevFormState,
-        [e.target.name]: e.target.value,
-      };
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    formState.changeInput({
+      name: e.target.name as keyof ProductFormState,
+      value: e.target.value,
     });
   };
 
   const handleOnClickEditar = () => {
     if (!updateMode) {
       setUpdateMode((prevUpdateMode) => !prevUpdateMode);
-    } else {
+      return;
+    }
+    try {
       updateProduct({
         id,
         nombre: formState.nombre,
@@ -40,11 +46,15 @@ const ProductRow: React.FC<Props> = ({
         precioOferta: formState.precioOferta,
       });
       setUpdateMode((prevUpdateMode) => !prevUpdateMode);
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
     }
   };
 
   const handleOnClickEliminar = () => {
-    if (confirm(`Confirmar eliminación de producto: ${nombre}?`)) {
+    if (confirm(`Confirmar eliminación de ${nombre}?`)) {
       deleteProduct(id);
     }
   };
@@ -80,7 +90,7 @@ const ProductRow: React.FC<Props> = ({
       <td>
         <input
           name="precioOferta"
-          value={formState.precioOferta ? formState.precioOferta : ''}
+          value={formState.precioOferta}
           disabled={!updateMode}
           type="number"
           onChange={handleChange}

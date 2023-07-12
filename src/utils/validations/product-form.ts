@@ -1,11 +1,11 @@
-import { ValidateForm } from '../../types';
+import { ProductFormState } from '../../types';
 
-export const validateForm: ValidateForm = ({
+export const validateProduct = ({
   categoria,
   nombre,
   precioNormal,
   precioOferta,
-}) => {
+}: ProductFormState) => {
   if (categoria === '' || nombre === '' || precioNormal === '') {
     throw new Error('Todos los campos son obligatorios');
   }

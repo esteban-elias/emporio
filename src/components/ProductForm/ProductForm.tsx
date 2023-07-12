@@ -4,8 +4,14 @@ import {
   ProductFormState,
   ProductFormProps as Props,
 } from '../../types';
-import { validateForm } from '../../utils/validations/product-form';
 import styles from './ProductForm.module.css';
+
+const initialState: ProductFormState = {
+  categoria: '',
+  nombre: '',
+  precioNormal: '',
+  precioOferta: '',
+};
 
 const ProductForm: React.FC<Props> = ({ addProduct }) => {
   const {
@@ -15,20 +21,17 @@ const ProductForm: React.FC<Props> = ({ addProduct }) => {
     precioOferta,
     changeInput,
     reset,
-  } = useProductForm();
+  } = useProductForm(initialState);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const fields = validateForm({
-        categoria: categoria,
-        nombre: nombre,
-        precioNormal: precioNormal,
-        precioOferta: precioOferta,
-      });
       addProduct({
-        ...fields,
         id: crypto.randomUUID(),
+        categoria,
+        nombre,
+        precioNormal,
+        precioOferta,
       });
       reset();
     } catch (error) {

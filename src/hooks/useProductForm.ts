@@ -6,17 +6,10 @@ import {
   ProductFormState,
 } from '../types';
 
-const initialState: ProductFormState = {
-  categoria: '',
-  nombre: '',
-  precioNormal: '',
-  precioOferta: '',
-};
-
 const reducer = (
   state: ProductFormState,
   action: ProductFormAction
-) => {
+): ProductFormState => {
   switch (action.type) {
     case Action.ChangeInput:
       return {
@@ -24,13 +17,18 @@ const reducer = (
         [action.payload!.name]: action.payload!.value,
       };
     case Action.Reset:
-      return initialState;
+      return {
+        categoria: '',
+        nombre: '',
+        precioNormal: '',
+        precioOferta: '',
+      };
     default:
       return state;
   }
 };
 
-const useProductForm = () => {
+const useProductForm = (initialState: ProductFormState) => {
   const [{ categoria, nombre, precioNormal, precioOferta }, dispatch] =
     useReducer(reducer, initialState);
 

@@ -4,8 +4,8 @@ export type Product = {
   id: `${string}-${string}-${string}-${string}-${string}`;
   categoria: string;
   nombre: string;
-  precioNormal: number;
-  precioOferta: number | null;
+  precioNormal: number | '';
+  precioOferta: number | '';
 };
 
 export type ProductTableProps = {
@@ -35,11 +35,4 @@ export type ProductFormAction =
     }
   | { type: Action.Reset };
 
-export type ProductFormState = {
-  categoria: string;
-  nombre: string;
-  precioNormal: number | '';
-  precioOferta: number | '';
-};
-
-type ValidateForm = (params: ProductFormState) => Omit<Product, 'id'>;
+export type ProductFormState = Omit<Product, 'id'>;

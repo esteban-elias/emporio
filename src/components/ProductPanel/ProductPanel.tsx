@@ -3,8 +3,9 @@ import { Product } from '../../types';
 import ProductForm from '../ProductForm/ProductForm';
 import ProductTable from '../ProductTable/ProductTable';
 import styles from './ProductPanel.module.css';
+import {validateProduct} from '../../utils/validations/product-form';
 
-const data = [
+const rawData = [
   {
     id: crypto.randomUUID(),
     categoria: 'Tecnología',
@@ -21,14 +22,21 @@ const data = [
   },
 ];
 
+const data: Product[] = rawData.map((product) => ({
+  ...product,
+  precioOferta: product.precioOferta ? product.precioOferta : '',
+}));
+
 const ProductPanel = () => {
-  const [products, setProducts] = useState<Product[]>(data);
+  const [products, setProducts] = useState(data);
 
   const addProduct = (product: Product) => {
+    validateProduct(product)
     setProducts((prevProducts) => prevProducts.concat(product));
   };
 
   const updateProduct = (product: Product) => {
+    validateProduct(product)
     setProducts((prevProducts) =>
       prevProducts.map((prevProduct) =>
         prevProduct.id === product.id ? product : prevProduct
