@@ -1,3 +1,4 @@
+import { toCLP } from '../../utils/format-currency';
 import React, { useState } from 'react';
 import {
   ProductRowProps as Props,
@@ -62,39 +63,60 @@ const ProductRow: React.FC<Props> = ({
   return (
     <tr className={styles.container}>
       <td>
-        <input
-          name="categoria"
-          value={formState.categoria}
-          disabled={!updateMode}
-          onChange={handleChange}
-        />
+        {updateMode ? (
+          <select
+            name="categoria"
+            value={formState.categoria}
+            disabled={!updateMode}
+            onChange={handleChange}
+          >
+            <option value="Tecnología">Tecnología</option>
+            <option value="Ropa Hombre">Hogar</option>
+            <option value="Ropa Mujer">Juguetes</option>
+            <option value="Joyería">Joyería</option>
+          </select>
+        ) : (
+          <span>{formState.categoria}</span>
+        )}
       </td>
 
       <td>
-        <input
-          name="nombre"
-          value={formState.nombre}
-          disabled={!updateMode}
-          onChange={handleChange}
-        />
+        {updateMode ? (
+          <input
+            name="nombre"
+            value={formState.nombre}
+            disabled={!updateMode}
+            onChange={handleChange}
+          />
+        ) : (
+          <span>{formState.nombre}</span>
+        )}
       </td>
       <td>
-        <input
-          name="precioNormal"
-          value={formState.precioNormal}
-          disabled={!updateMode}
-          type="number"
-          onChange={handleChange}
-        />
+        {updateMode ? (
+          <input
+            name="precioNormal"
+            value={formState.precioNormal}
+            disabled={!updateMode}
+            type="number"
+            onChange={handleChange}
+          />
+        ) : (
+          <span>{toCLP(formState.precioNormal)}</span>
+        )}
       </td>
       <td>
-        <input
-          name="precioOferta"
-          value={formState.precioOferta}
-          disabled={!updateMode}
-          type="number"
-          onChange={handleChange}
-        />
+        {updateMode ? (
+          <input
+            name="precioOferta"
+            value={formState.precioOferta}
+            disabled={!updateMode}
+            type="number"
+            onChange={handleChange}
+          />
+        ) : (
+          <span>{toCLP(formState.precioOferta)}</span>
+        )}
       </td>
       <td>
         <button onClick={handleOnClickEditar}>

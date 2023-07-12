@@ -24,7 +24,7 @@ export const validateProduct = ({
   return {
     categoria,
     nombre,
-    precioNormal,
-    precioOferta: precioOferta ? precioOferta : null,
+    precioNormal: Number(precioNormal),
+    precioOferta: Number(precioNormal),
   };
 };
