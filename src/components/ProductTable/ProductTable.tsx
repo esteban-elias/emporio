@@ -1,38 +1,87 @@
 import useProduct from '../../hooks/useProduct';
 import styles from './ProductTable.module.css';
 import { useState } from 'react';
-import { ProductRowProps } from '../../types';
+import { Product, ProductRowProps } from '../../types';
 import { toCLP } from '../../utils/format';
 
-const ProductTable = () => {
-  const { products, updateProduct, deleteProduct } = useProduct();
+const CATEGORY_OPTIONS = [
+  'Tecnología',
+  'Ropa Hombre',
+  'Ropa Mujer',
+  'Joyería',
+].map((category) => {
   return (
-    <table className={styles.container}>
-      <thead>
-        <tr>
-          <th colSpan={5}>Productos</th>
-        </tr>
-        <tr>
-          <th>Categoría</th>
-          <th>Nombre</th>
-          <th>Precio Normal</th>
-          <th>Precio Oferta</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        {products.map((product) => {
-          return (
-            <ProductRow
-              key={product.id}
-              updateProduct={updateProduct}
-              deleteProduct={deleteProduct}
-              {...product}
-            />
-          );
-        })}
-      </tbody>
-    </table>
+    <option key={category} value={category}>
+      {category}
+    </option>
+  );
+});
+
+const ProductTable = () => {
+  const { products, addProduct, updateProduct, deleteProduct } =
+    useProduct();
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const product = Object.fromEntries(formData.entries());
+    try {
+      addProduct({ ...product, id: crypto.randomUUID() } as Product);
+      form.reset();
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <table className={styles.container}>
+        <thead>
+          <tr>
+            <th colSpan={5}>Productos</th>
+          </tr>
+          <tr>
+            <th>Categoría</th>
+            <th>Nombre</th>
+            <th>Precio Normal</th>
+            <th>Precio Oferta</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <select name="categoria">{CATEGORY_OPTIONS}</select>
+            </td>
+            <td>
+              <input name="nombre" />
+            </td>
+            <td>
+              <input type="number" name="precioNormal" />
+            </td>
+            <td>
+              <input type="number" name="precioOferta" />
+            </td>
+            <td>
+              <button>Agregar</button>
+            </td>
+          </tr>
+          {products.map((product) => {
+            return (
+              <ProductRow
+                key={product.id}
+                updateProduct={updateProduct}
+                deleteProduct={deleteProduct}
+                {...product}
+              />
+            );
+          })}
+        </tbody>
+      </table>
+    </form>
   );
 };
 
@@ -74,10 +123,7 @@ const ProductRow = ({
           value={categoria}
           onChange={handleChange}
         >
-          <option value="Tecnología">Tecnología</option>
-          <option value="Ropa Hombre">Ropa Hombre</option>
-          <option value="Ropa Mujer">Ropa Mujer</option>
-          <option value="Joyería">Joyería</option>
+          {CATEGORY_OPTIONS}
         </select>
       </td>
       <td>
@@ -100,7 +146,9 @@ const ProductRow = ({
         />
       </td>
       <td>
-        <button onClick={() => setIsEditing(false)}>Guardar</button>
+        <button type="button" onClick={() => setIsEditing(false)}>
+          Guardar
+        </button>
       </td>
     </tr>
   ) : (
@@ -110,8 +158,12 @@ const ProductRow = ({
       <td>{toCLP(precioNormal)}</td>
       <td>{toCLP(precioOferta)}</td>
       <td>
-        <button onClick={() => setIsEditing(true)}>Editar</button>
-        <button onClick={() => deleteProduct(id)}>Eliminar</button>
+        <button type="button" onClick={() => setIsEditing(true)}>
+          Editar
+        </button>
+        <button type="button" onClick={() => deleteProduct(id)}>
+          Eliminar
+        </button>
       </td>
     </tr>
   );

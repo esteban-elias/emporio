@@ -46,8 +46,3 @@ export type ProductContext = {
 export type ProductProviderProps = {
   children: ReactNode;
 };
-
-export type ProductRowProps = Product & {
-  updateProduct: (product: Product) => void;
-  deleteProduct: (id: Product['id']) => void;
-};
