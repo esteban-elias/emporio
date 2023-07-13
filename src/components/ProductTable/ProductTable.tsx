@@ -37,51 +37,52 @@ const ProductTable = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <table className={styles.container}>
-        <thead>
-          <tr>
-            <th colSpan={5}>Productos</th>
-          </tr>
-          <tr>
-            <th>Categoría</th>
-            <th>Nombre</th>
-            <th>Precio Normal</th>
-            <th>Precio Oferta</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <select name="categoria">{CATEGORY_OPTIONS}</select>
-            </td>
-            <td>
-              <input name="nombre" />
-            </td>
-            <td>
-              <input type="number" name="precioNormal" />
-            </td>
-            <td>
-              <input type="number" name="precioOferta" />
-            </td>
-            <td>
-              <button>Agregar</button>
-            </td>
-          </tr>
-          {products.map((product) => {
-            return (
-              <ProductRow
-                key={product.id}
-                updateProduct={updateProduct}
-                deleteProduct={deleteProduct}
-                {...product}
-              />
-            );
-          })}
-        </tbody>
-      </table>
-    </form>
+    <>
+      <form onSubmit={handleSubmit} id='add-product'></form>
+        <table className={styles.container}>
+          <thead>
+            <tr>
+              <th colSpan={5}>Productos</th>
+            </tr>
+            <tr>
+              <th>Categoría</th>
+              <th>Nombre</th>
+              <th>Precio Normal</th>
+              <th>Precio Oferta</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <select name="categoria" form='add-product'>{CATEGORY_OPTIONS}</select>
+              </td>
+              <td>
+                <input name="nombre" form='add-product'/>
+              </td>
+              <td>
+                <input type="number" name="precioNormal" form='add-product'/>
+              </td>
+              <td>
+                <input type="number" name="precioOferta" form='add-product'/>
+              </td>
+              <td>
+                <button form='add-product'>Agregar</button>
+              </td>
+            </tr>
+            {products.map((product) => {
+              return (
+                <ProductRow
+                  key={product.id}
+                  updateProduct={updateProduct}
+                  deleteProduct={deleteProduct}
+                  {...product}
+                />
+              );
+            })}
+          </tbody>
+        </table>
+    </>
   );
 };
 
