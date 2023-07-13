@@ -10,32 +10,3 @@ const useProduct = () => {
 };
 
 export default useProduct;
-
-// const useProductForm = (initialState: ProductFormState) => {
-//   const [{ categoria, nombre, precioNormal, precioOferta }, dispatch] =
-//     useReducer(reducer, initialState);
-
-//   const changeInput = (payload: Payload) => {
-//     dispatch({
-//       type: Action.ChangeInput,
-//       payload,
-//     });
-//   };
-
-//   const reset = () => {
-//     dispatch({
-//       type: Action.Reset,
-//     });
-//   };
-
-//   return {
-//     categoria,
-//     nombre,
-//     precioNormal,
-//     precioOferta,
-//     changeInput,
-//     reset,
-//   };
-// };
-
-// export default useProductForm;
