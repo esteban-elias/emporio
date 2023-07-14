@@ -1,26 +1,34 @@
-import { Page } from '../../enums';
-import usePage from '../../hooks/usePage';
-import ProductAdminPanel from '../ProductAdminPanel/ProductAdminPanel';
+import useProduct from '../../hooks/useProduct';
+import { showProductsByCategoria } from '../../utils/show';
 
 const Home = () => {
-  const { page } = usePage();
+  const { products } = useProduct();
 
-  const home = (
-    <div>
-      <h1>Home</h1>
-      <p>Current page is Home</p>
-    </div>
+  return (
+    <main>
+      <h1>Productos Destacados</h1>
+      <section>
+        <ul>
+          <li>
+            Tecnología
+            <ul>{showProductsByCategoria(products, 'Tecnología')}</ul>
+          </li>
+          <li>
+            Joyería
+            <ul>{showProductsByCategoria(products, 'Joyería')}</ul>
+          </li>
+          <li>
+            Ropa Hombre
+            <ul>{showProductsByCategoria(products, 'Ropa Hombre')}</ul>
+          </li>
+          <li>
+            Ropa Mujer
+            <ul>{showProductsByCategoria(products, 'Ropa Mujer')}</ul>
+          </li>
+        </ul>
+      </section>
+    </main>
   );
-
-  switch (page) {
-    case Page.Home:
-      return home;
-    case Page.ProductAdminPanel:
-      return <ProductAdminPanel/>;
-    default:
-      return home;
-  }
-
 };
 
 export default Home;

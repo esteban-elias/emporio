@@ -52,3 +52,7 @@ export type PageContext = {
   page: Page;
   setPage: (page: Page) => void;
 }
+
+export type CategoryProps = {
+  categoria: string;
+}

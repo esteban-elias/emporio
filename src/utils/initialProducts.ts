@@ -13,28 +13,28 @@ const initialProducts: Product[] = [
       "categoria": "Joyería",
       "nombre": "Collar",
       "precioNormal": '300000',
-      "precioOferta": ""
+      "precioOferta": "200000"
   },
   {
       "id": "c91479ba-c1c9-40a6-b865-1cc14a3100db",
       "categoria": "Joyería",
       "nombre": "Pulsera",
       "precioNormal": '200000',
-      "precioOferta": ""
+      "precioOferta": "150000"
   },
   {
       "id": "506c55e8-414a-40a5-9e25-25a7488fbf38",
       "categoria": "Ropa Hombre",
       "nombre": "Camisa",
       "precioNormal": '20000',
-      "precioOferta": ""
+      "precioOferta": "10000"
   },
   {
       "id": "1d760e85-6758-4029-82bf-c8f695f3e1bb",
       "categoria": "Ropa Hombre",
       "nombre": "Pantalón",
       "precioNormal": '30000',
-      "precioOferta": ""
+      "precioOferta": "20000"
   },
   {
       "id": "10b73c97-f4bb-40be-9493-bd692ad25f73",
@@ -48,14 +48,14 @@ const initialProducts: Product[] = [
       "categoria": "Ropa Mujer",
       "nombre": "Vestido",
       "precioNormal": '40000',
-      "precioOferta": ""
+      "precioOferta": "30000"
   },
   {
       "id": "7025dbc2-2863-463d-9b25-75bac6b1691b",
       "categoria": "Ropa Mujer",
       "nombre": "Blusa",
       "precioNormal": '20000',
-      "precioOferta": ""
+      "precioOferta": "10000"
   },
   {
       "id": "6e9b31bc-e16a-4231-8b28-a8cd54ac1491",
@@ -76,14 +76,14 @@ const initialProducts: Product[] = [
       "categoria": "Tecnología",
       "nombre": "Mouse",
       "precioNormal": "10000",
-      "precioOferta": ""
+      "precioOferta": "5000"
   },
   {
       "id": "4b306d15-6bbb-4ac1-b872-ca3d1df11633",
       "categoria": "Tecnología",
       "nombre": "Teclado",
       "precioNormal": "20000",
-      "precioOferta": ""
+      "precioOferta": "10000"
   }
 ]; 
 

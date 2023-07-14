@@ -1,15 +1,18 @@
 import React from 'react';
 import { PageProvider } from './contexts/PageProvider';
-import Home from './components/Home/Home';
 import Header from './components/Header/Header';
+import { ProductProvider } from './contexts/ProductProvider';
+import Router from './utils/Router';
 // import Footer from './components/Footer/Footer';
 
 function App() {
   return (
     <React.StrictMode>
       <PageProvider>
-        <Header/>
-        <Home />
+        <Header />
+        <ProductProvider>
+          <Router/>
+        </ProductProvider>
         {/* <Footer/> */}
       </PageProvider>
     </React.StrictMode>
