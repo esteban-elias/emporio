@@ -15,9 +15,10 @@ export type ProductTableProps = {
   deleteProduct: (id: Product['id']) => void;
 };
 
-export type ProductRowProps = Product & {
+export type ProductRowProps =  {
   updateProduct: (product: Product) => void;
   deleteProduct: (id: Product['id']) => void;
+  product: Product
 };
 
 export type ProductFormProps = {
