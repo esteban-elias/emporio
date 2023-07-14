@@ -1,10 +1,17 @@
 import React from 'react';
-import ProductAdminPanel from './components/ProductAdminPanel/ProductAdminPanel';
+import { PageProvider } from './contexts/PageProvider';
+import Home from './components/Home/Home';
+import Header from './components/Header/Header';
+// import Footer from './components/Footer/Footer';
 
 function App() {
   return (
     <React.StrictMode>
-      <ProductAdminPanel />
+      <PageProvider>
+        <Header/>
+        <Home />
+        {/* <Footer/> */}
+      </PageProvider>
     </React.StrictMode>
   );
 }

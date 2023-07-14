@@ -1,7 +1,7 @@
 import { ProductProvider } from "../../contexts/ProductProvider";
 import ProductTable from "../ProductTable/ProductTable";
 
-const ProductAdmin = () => {
+const ProductAdminPanel = () => {
   return (
     <ProductProvider>
       <ProductTable />
@@ -9,4 +9,4 @@ const ProductAdmin = () => {
   );
 };
 
-export default ProductAdmin;
+export default ProductAdminPanel;

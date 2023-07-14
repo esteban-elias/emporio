@@ -4,7 +4,7 @@ import { productReducer } from '../reducers/productReducer';
 import {
   Product,
   ProductContext as Context,
-  ProductProviderProps as Props,
+  ProviderProps
 } from '../types';
 import { validateProduct } from '../utils/validation';
 import initialProducts from '../utils/initialProducts';
@@ -50,7 +50,7 @@ const useProductReducer = () => {
   };
 };
 
-export const ProductProvider = ({ children }: Props) => {
+export const ProductProvider = ({ children }: ProviderProps) => {
   const { products, addProduct, updateProduct, deleteProduct } =
     useProductReducer();
   return (

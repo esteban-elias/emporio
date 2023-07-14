@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { ProductActionType } from './enums';
+import { ProductActionType, Page } from './enums';
 
 export type Product = {
   id: `${string}-${string}-${string}-${string}-${string}`;
@@ -15,10 +15,10 @@ export type ProductTableProps = {
   deleteProduct: (id: Product['id']) => void;
 };
 
-export type ProductRowProps =  {
+export type ProductRowProps = {
   updateProduct: (product: Product) => void;
   deleteProduct: (id: Product['id']) => void;
-  product: Product
+  product: Product;
 };
 
 export type ProductFormProps = {
@@ -44,6 +44,11 @@ export type ProductContext = {
   deleteProduct: (id: Product['id']) => void;
 };
 
-export type ProductProviderProps = {
+export type ProviderProps = {
   children: ReactNode;
 };
+
+export type PageContext = {
+  page: Page;
+  setPage: (page: Page) => void;
+}

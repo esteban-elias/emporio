@@ -3,3 +3,13 @@ export const enum ProductActionType {
   Update,
   Delete
 }
+
+export const enum Page {
+  Home,
+  RopaHombre,
+  RopaMujer,
+  Joyeria,
+  Tecnologia,
+  Contacto,
+  ProductAdminPanel
+}
