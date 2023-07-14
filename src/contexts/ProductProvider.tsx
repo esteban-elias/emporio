@@ -1,12 +1,13 @@
 import { createContext, useReducer } from 'react';
 import { ProductActionType as ActionType } from '../enums';
-import { initialProducts, productReducer } from '../reducers/productReducer';
+import { productReducer } from '../reducers/productReducer';
 import {
   Product,
   ProductContext as Context,
   ProductProviderProps as Props,
 } from '../types';
 import { validateProduct } from '../utils/validation';
+import initialProducts from '../utils/initialProducts';
 
 export const ProductContext = createContext<Context| null>(
   null

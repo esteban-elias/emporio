@@ -1,33 +1,16 @@
 import { ProductActionType as ActionType } from '../enums';
 import { Product, ProductAction as Action} from '../types';
 
-const data = [
-  {
-    id: crypto.randomUUID(),
-    categoria: 'Tecnología',
-    nombre: 'Monitor',
-    precioNormal: 1000,
-    precioOferta: 800,
-  },
-  {
-    id: crypto.randomUUID(),
-    categoria: 'Tecnología',
-    nombre: 'Mouse',
-    precioNormal: 100,
-    precioOferta: null,
-  },
-];
-
-// Adjust types for input elements
-export const initialProducts: Product[] = data.map((product) => ({
-  ...product,
-  precioOferta: product.precioOferta ? product.precioOferta : '',
-}));
-
 export const productReducer = (products: Product[], action: Action) => {
   switch (action.type) {
     case ActionType.Add: {
-      return [...products, action.payload];
+      const newProducts = [...products, action.payload];
+      newProducts.sort((a, b) => {
+        if(a.categoria < b.categoria) { return -1; }
+        if(a.categoria > b.categoria) { return 1; }
+        return 0;
+      });
+      return newProducts;
     }
     case ActionType.Update: {
       return products.map((product) =>

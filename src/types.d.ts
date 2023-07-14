@@ -5,8 +5,8 @@ export type Product = {
   id: `${string}-${string}-${string}-${string}-${string}`;
   categoria: string;
   nombre: string;
-  precioNormal: number | '';
-  precioOferta: number | '';
+  precioNormal: string;
+  precioOferta: string;
 };
 
 export type ProductTableProps = {

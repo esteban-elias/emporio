@@ -1,4 +1,4 @@
-export const toCLP = (value: number | '') => {
+export const toCLP = (value: string) => {
   if (value === '') {
     return '';
   }
@@ -6,5 +6,5 @@ export const toCLP = (value: number | '') => {
     style: 'currency',
     currency: 'clp',
   });
-  return formatter.format(value);
+  return formatter.format(Number(value));
 };
